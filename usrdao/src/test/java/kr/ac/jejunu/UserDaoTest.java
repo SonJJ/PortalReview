@@ -12,9 +12,12 @@ public class UserDaoTest {
     private UserDao userDao;
     private UserDao hallaUserDao;
 
+    //factory method pattern
     //새로운 유저에 등장
     //New User는 다르게 디비를 쓰고싶어
     //하지만 중복이 너무 많아
+
+
     @Before
     public void setup(){
         userDao = new JejuUserDao();
