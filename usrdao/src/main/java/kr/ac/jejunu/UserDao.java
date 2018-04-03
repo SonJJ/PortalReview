@@ -3,7 +3,7 @@ package kr.ac.jejunu;
 import java.sql.*;
 
 
-public class UserDao {
+abstract class UserDao {
     public User get(int id) throws SQLException, ClassNotFoundException{
         //사용자는 어디에 저장되어있나?
         //Database를 사용해보자, Mysql을 사용해보자
@@ -32,7 +32,7 @@ public class UserDao {
         return user;
     }
 
-    public static Integer insert(User user) throws SQLException, ClassNotFoundException {
+    public Integer insert(User user) throws SQLException, ClassNotFoundException {
         //connection을 맺고
         Connection connection = getConnection();
         //쿼리문 만들고
@@ -60,13 +60,6 @@ public class UserDao {
         return id;
     }
 
-    private static Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-
-        //Connection을 맺고
-        return DriverManager.getConnection(
-                "jdbc:mysql://localhost/jeju?characterEncoding=utf-8",
-                "root",
-                "root12345");
-    }
+    //내용물을 추상화시킴
+    abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }
