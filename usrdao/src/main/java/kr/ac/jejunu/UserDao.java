@@ -3,11 +3,13 @@ package kr.ac.jejunu;
 import java.sql.*;
 
 
-abstract class UserDao {
+public class UserDao {
+    public final ConnectionMaker connectionMaker = new JejuConnectionMaker();
+
     public User get(int id) throws SQLException, ClassNotFoundException{
         //사용자는 어디에 저장되어있나?
         //Database를 사용해보자, Mysql을 사용해보자
-        Connection connection = getConnection();
+        Connection connection = connectionMaker.getConnection();
 
         //쿼리를 만들어서
         PreparedStatement preparedStatement = connection.prepareStatement(
@@ -34,7 +36,7 @@ abstract class UserDao {
 
     public Integer insert(User user) throws SQLException, ClassNotFoundException {
         //connection을 맺고
-        Connection connection = getConnection();
+        Connection connection = connectionMaker.getConnection();
         //쿼리문 만들고
         PreparedStatement preparedStatement = connection.prepareStatement(
                 "INSERT INTO userinfo(name, password) VALUES (?,?)");
@@ -61,5 +63,4 @@ abstract class UserDao {
     }
 
     //내용물을 추상화시킴
-    abstract Connection getConnection() throws ClassNotFoundException, SQLException;
 }
